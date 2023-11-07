@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn7tw6m0dmpv"]
+
+[ext_resource type="PackedScene" uid="uid://btyjtdjdh8ot0" path="res://Scenes/MainMenu/MainMenu.tscn" id="1_c5kaf"]
+
+[node name="main" type="Node"]
+
+[node name="quiz_container" type="Node" parent="."]
+
+[node name="main_menu" parent="quiz_container" instance=ExtResource("1_c5kaf")]
