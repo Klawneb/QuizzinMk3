@@ -17,7 +17,7 @@ func create_server(username: String) -> void:
 	
 	if err == OK:
 		SceneManager.load_scene("res://Scenes/Lobby/Lobby.tscn")
-		UserManager.add_user(1, username)
+		UserManager.add_user(Utils.personal_id, 1, username)
 	
 func create_client(username: String, ip_address: String) -> void:
 	self.username = username
@@ -29,7 +29,7 @@ func create_client(username: String, ip_address: String) -> void:
 func on_connected_to_server() -> void:
 	SceneManager.load_scene("res://Scenes/Lobby/Lobby.tscn")
 	UserManager.get_existing_users.rpc_id(1, multiplayer.get_unique_id())
-	UserManager.add_user.rpc_id(1, multiplayer.get_unique_id(), self.username)
+	UserManager.add_user.rpc_id(1, Utils.personal_id, multiplayer.get_unique_id(), self.username)
 
 # Runs on clients when they lose connection to the server
 func on_server_disconnected() -> void:

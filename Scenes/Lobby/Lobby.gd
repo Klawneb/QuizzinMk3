@@ -14,8 +14,10 @@ func _on_quit_button_pressed() -> void:
 
 func update_user_list() -> void:
 	user_list.clear()
-	for user in UserManager.user_list:
-		user_list.add_item(user.username)
+	for id in UserManager.user_list:
+		var user = UserManager.user_list[id]
+		if user.connected:
+			user_list.add_item(user.username)
 
 func _on_start_button_pressed() -> void:
 	SceneManager.load_scene("res://Scenes/HostView/HostView.tscn")

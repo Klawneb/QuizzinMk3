@@ -1,9 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn7tw6m0dmpv"]
+[gd_scene load_steps=3 format=3 uid="uid://cn7tw6m0dmpv"]
 
 [ext_resource type="PackedScene" uid="uid://btyjtdjdh8ot0" path="res://Scenes/MainMenu/MainMenu.tscn" id="1_c5kaf"]
+[ext_resource type="Script" path="res://main.gd" id="1_wa5bq"]
 
 [node name="main" type="Node"]
+script = ExtResource("1_wa5bq")
 
 [node name="quiz_container" type="Node" parent="."]
 
 [node name="main_menu" parent="quiz_container" instance=ExtResource("1_c5kaf")]
+
+[node name="DebugMenu" type="Window" parent="."]
+initial_position = 1
+size = Vector2i(500, 500)
+visible = false
+
+[node name="TabContainer" type="TabContainer" parent="DebugMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UserList" type="RichTextLabel" parent="DebugMenu/TabContainer"]
+layout_mode = 2
+
+[node name="DebugButton" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -63.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "DEBUG"
+
+[connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]
