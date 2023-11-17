@@ -11,8 +11,7 @@ func add_user(multiplayer_id: int, username: String) -> void:
 	user_list_updated.emit()
 	
 	if is_multiplayer_authority():
-		for id in multiplayer.get_peers():
-			add_user.rpc_id(id, multiplayer_id, username)
+		add_user.rpc(multiplayer_id, username)
 
 @rpc("any_peer", "call_remote", "reliable")
 func get_existing_users(multiplayer_id: int):
