@@ -1,0 +1,2 @@
+extends Question
+class_name ImageQuestion

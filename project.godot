@@ -21,6 +21,8 @@ SceneManager="*res://Scripts/Autoload/SceneManager.gd"
 Utils="*res://Scripts/Autoload/Utils.gd"
 NetworkManager="*res://Scripts/Autoload/NetworkManager.gd"
 UserManager="*res://Scripts/Autoload/UserManager.gd"
+QuestionManager="*res://Scripts/Autoload/QuestionManager.gd"
+AnswerManager="*res://Scripts/Autoload/AnswerManager.gd"
 
 [debug]
 

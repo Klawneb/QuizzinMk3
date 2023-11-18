@@ -25,6 +25,10 @@ grow_vertical = 2
 [node name="UserList" type="RichTextLabel" parent="DebugMenu/TabContainer"]
 layout_mode = 2
 
+[node name="AnswerList" type="RichTextLabel" parent="DebugMenu/TabContainer"]
+visible = false
+layout_mode = 2
+
 [node name="DebugButton" type="Button" parent="."]
 anchors_preset = 3
 anchor_left = 1.0

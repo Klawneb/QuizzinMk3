@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://52toeri0axy3"]
+[gd_scene load_steps=3 format=3 uid="uid://52toeri0axy3"]
+
+[ext_resource type="PackedScene" uid="uid://c4ixbxk43au8o" path="res://Scenes/QuestionView/QuestionView.tscn" id="1_8ifo2"]
+[ext_resource type="Script" path="res://Scenes/HostView/HostView.gd" id="1_q3u5m"]
 
 [node name="HostView" type="Control"]
 layout_mode = 3
@@ -7,18 +10,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_q3u5m")
 
-[node name="Label" type="Label" parent="."]
+[node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "This is the host view"
+
+[node name="QuestionView" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/QuestionView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostSidePanel" type="VBoxContainer" parent="TabContainer/QuestionView/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="QuestionList" type="VBoxContainer" parent="TabContainer/QuestionView/HBoxContainer/HostSidePanel"]
+layout_mode = 2
+
+[node name="QuestionView" parent="TabContainer/QuestionView/HBoxContainer" instance=ExtResource("1_8ifo2")]
+layout_mode = 2
+size_flags_horizontal = 3
