@@ -11,8 +11,6 @@ var AnswerScenes = {
 	Question.AnswerType.TEXT: "res://Scenes/QuestionView/AnswerText/AnswerText.tscn"
 }
 
-var current_question: Question
-
 func _ready() -> void:
 	QuestionManager.question_load.connect(on_question_load)
 	QuestionManager.answer_reveal.connect(on_answer_revealed)
@@ -20,7 +18,7 @@ func _ready() -> void:
 func on_question_load(question: Question) -> void:
 	Utils.remove_all_children(question_container)
 	Utils.remove_all_children(answer_container)	
-	current_question = question
+	QuestionManager.set_current_question(question)
 	
 	if question.question_type != Question.QuestionType.NONE:
 		var question_node = load(QuestionScenes[question.question_type]).instantiate()
@@ -36,5 +34,5 @@ func on_answer_revealed():
 	Utils.remove_all_children(answer_container)
 	
 	var revealed_answer = load("res://Scenes/QuestionView/AnswerRevealed/AnswerRevealed.tscn").instantiate()
-	revealed_answer.init(current_question)
+	revealed_answer.init(QuestionManager.current_question)
 	answer_container.add_child(revealed_answer)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/HostView/QuestionListItem/QuestionListItem.gd" id="1_vktlg"]
 
-[node name="QuestionListItem" type="HBoxContainer"]
+[node name="QuestionListItem" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,12 +10,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vktlg")
 
-[node name="QuestionText" type="Label" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="QuestionText" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+text_overrun_behavior = 3
 
-[node name="SubmitButton" type="Button" parent="."]
+[node name="SubmitButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Load"
 
-[connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SubmitButton" to="." method="_on_submit_button_pressed"]

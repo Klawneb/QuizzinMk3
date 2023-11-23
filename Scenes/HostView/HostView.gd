@@ -1,6 +1,6 @@
 extends Control
 
-@onready var question_list: VBoxContainer = $TabContainer/QuestionView/HBoxContainer/HostSidePanel/QuestionList
+@onready var question_list: VBoxContainer = %QuestionList
 
 func _ready() -> void:
 	for question in QuestionManager.question_list:

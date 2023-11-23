@@ -4,6 +4,9 @@ extends Node
 
 signal question_load
 signal answer_reveal
+signal current_question_updated
+
+var current_question
 
 func load_question_list() -> Array:
 	var questions: Array = []
@@ -22,3 +25,7 @@ func emit_load_question(question_dict: Dictionary):
 @rpc("authority", "call_local", "reliable")
 func emit_reveal_answer():
 	answer_reveal.emit()
+
+func set_current_question(question: Question):
+	current_question = question
+	current_question_updated.emit()
