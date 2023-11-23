@@ -16,6 +16,6 @@ size_flags_horizontal = 3
 
 [node name="SubmitButton" type="Button" parent="."]
 layout_mode = 2
-text = "Submit"
+text = "Load"
 
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]

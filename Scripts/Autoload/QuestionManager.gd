@@ -3,6 +3,7 @@ extends Node
 @onready var question_list: Array = load_question_list() as Array[Question]
 
 signal question_load
+signal answer_reveal
 
 func load_question_list() -> Array:
 	var questions: Array = []
@@ -17,3 +18,7 @@ func load_question_list() -> Array:
 func emit_load_question(question_dict: Dictionary):
 	var question = dict_to_inst(question_dict) as Question
 	question_load.emit(question)
+
+@rpc("authority", "call_local", "reliable")
+func emit_reveal_answer():
+	answer_reveal.emit()

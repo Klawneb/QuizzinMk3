@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq6e7iml8jk2n"]
+[gd_scene load_steps=4 format=3 uid="uid://dq6e7iml8jk2n"]
 
 [ext_resource type="Script" path="res://Scenes/QuestionView/AnswerText/AnswerText.gd" id="1_pxv3a"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d1dbf"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_mfy6e"]
+font_size = 24
 
 [node name="AnswerText" type="Control"]
 custom_minimum_size = Vector2(0, 150)
@@ -32,4 +38,38 @@ layout_mode = 2
 layout_mode = 2
 text = "Submit"
 
+[node name="ExistingAnswerContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -29.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExistingAnswerContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ExistingAnswerContainer/VBoxContainer"]
+layout_mode = 2
+text = "You answered:"
+label_settings = SubResource("LabelSettings_d1dbf")
+horizontal_alignment = 1
+
+[node name="YourAnswer" type="Label" parent="ExistingAnswerContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_mfy6e")
+horizontal_alignment = 1
+
+[node name="EditButton" type="Button" parent="ExistingAnswerContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.2
+text = "Edit"
+
 [connection signal="pressed" from="InputContainer/SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="ExistingAnswerContainer/EditButton" to="." method="_on_edit_button_pressed"]

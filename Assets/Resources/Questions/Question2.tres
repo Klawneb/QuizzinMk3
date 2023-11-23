@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TextQuestion" load_steps=2 format=3 uid="uid://b2d52mlw2gywp"]
+
+[ext_resource type="Script" path="res://Assets/Resources/TextQuestion.gd" id="1_7nqvd"]
+
+[resource]
+script = ExtResource("1_7nqvd")
+id = "9c4492d3-8585-4f55-b774-d61e5fdb9c9b"
+main_text = "This is question 2"
+answers = Array[String](["Question 2 has", "2 Answers"])
+question_type = 0
+answer_type = 0
