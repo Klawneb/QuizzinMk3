@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://h7g034bkinsa"]
+[gd_scene load_steps=3 format=3 uid="uid://h7g034bkinsa"]
 
 [ext_resource type="Script" path="res://Scenes/QuestionView/QuestionImage/QuestionImage.gd" id="1_mpuua"]
+[ext_resource type="LabelSettings" uid="uid://dp7x0wuxnkbpk" path="res://Assets/Resources/Fonts/MainText.tres" id="2_2rbj5"]
 
 [node name="QuestionImage" type="Control"]
 layout_mode = 3
@@ -28,7 +29,9 @@ alignment = 1
 
 [node name="MainText" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
+label_settings = ExtResource("2_2rbj5")
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2

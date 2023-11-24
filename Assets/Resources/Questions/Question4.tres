@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AudioQuestion" load_steps=2 format=3 uid="uid://bcdgm5tpqjmet"]
+
+[ext_resource type="Script" path="res://Assets/Resources/AudioQuestion.gd" id="1_gpm0o"]
+
+[resource]
+script = ExtResource("1_gpm0o")
+audio_path = "res://Assets/Audio/penis.mp3"
+id = "f0822c4c-1293-4599-87d9-433424c5ae70"
+main_text = "This is the audio question"
+answers = Array[String](["Penis"])
+question_type = 2
+answer_type = 0

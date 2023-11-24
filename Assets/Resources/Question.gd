@@ -4,6 +4,7 @@ class_name Question
 enum QuestionType {
 	TEXT,
 	IMAGE,
+	AUDIO,
 	NONE
 }
 

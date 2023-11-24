@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://blhj6mb25bjeg"]
+[gd_scene load_steps=3 format=3 uid="uid://blhj6mb25bjeg"]
 
 [ext_resource type="Script" path="res://Scenes/QuestionView/QuestionText/QuestionText.gd" id="1_lt8su"]
+[ext_resource type="LabelSettings" uid="uid://dp7x0wuxnkbpk" path="res://Assets/Resources/Fonts/MainText.tres" id="2_o7clt"]
 
 [node name="QuestionText" type="Control"]
 layout_mode = 3
@@ -24,4 +25,5 @@ alignment = 1
 
 [node name="MainText" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+label_settings = ExtResource("2_o7clt")
 horizontal_alignment = 1

@@ -5,6 +5,8 @@ extends Node
 signal question_load
 signal answer_reveal
 signal current_question_updated
+signal audio_played
+signal audio_stopped
 
 var current_question
 
@@ -29,3 +31,11 @@ func emit_reveal_answer():
 func set_current_question(question: Question):
 	current_question = question
 	current_question_updated.emit()
+
+@rpc("authority", "call_local", "reliable")
+func emit_audio_played():
+	audio_played.emit()
+
+@rpc("authority", "call_local", "reliable")
+func emit_audio_stopped():
+	audio_stopped.emit()

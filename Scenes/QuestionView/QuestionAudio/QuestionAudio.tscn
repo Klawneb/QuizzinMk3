@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq8qs58lei0pu"]
+
+[ext_resource type="Script" path="res://Scenes/QuestionView/QuestionAudio/QuestionAudio.gd" id="1_vrwfb"]
+[ext_resource type="LabelSettings" uid="uid://dp7x0wuxnkbpk" path="res://Assets/Resources/Fonts/MainText.tres" id="2_n74tw"]
+
+[node name="QuestionAudio" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_vrwfb")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="MainText" type="Label" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("2_n74tw")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="VBoxContainer/VBoxContainer2/VBoxContainer"]
+
+[node name="SongProgress" type="ProgressBar" parent="VBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VolumeLabel" type="Label" parent="VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Volume:"
+
+[node name="VolumeSlider" type="HSlider" parent="VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = -30.0
+max_value = 5.0
+value = -5.0
+
+[node name="PlayerControls" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/VBoxContainer2/VBoxContainer/PlayerControls"]
+layout_mode = 2
+text = "Play"
+
+[node name="StopButton" type="Button" parent="VBoxContainer/VBoxContainer2/VBoxContainer/PlayerControls"]
+layout_mode = 2
+text = "Stop"
+
+[connection signal="drag_ended" from="VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/VolumeSlider" to="." method="_on_volume_slider_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/VBoxContainer2/VBoxContainer/HBoxContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/VBoxContainer/PlayerControls/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/VBoxContainer/PlayerControls/StopButton" to="." method="_on_stop_button_pressed"]

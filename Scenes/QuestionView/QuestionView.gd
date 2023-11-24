@@ -5,7 +5,8 @@ extends Control
 
 var QuestionScenes = {
 	Question.QuestionType.TEXT: "res://Scenes/QuestionView/QuestionText/QuestionText.tscn",
-	Question.QuestionType.IMAGE: "res://Scenes/QuestionView/QuestionImage/QuestionImage.tscn"
+	Question.QuestionType.IMAGE: "res://Scenes/QuestionView/QuestionImage/QuestionImage.tscn",
+	Question.QuestionType.AUDIO: "res://Scenes/QuestionView/QuestionAudio/QuestionAudio.tscn"
 }
 
 var AnswerScenes = {
