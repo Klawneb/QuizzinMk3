@@ -4,7 +4,8 @@ extends Control
 @onready var answer_container: BoxContainer = %AnswerContainer
 
 var QuestionScenes = {
-	Question.QuestionType.TEXT: "res://Scenes/QuestionView/QuestionText/QuestionText.tscn"
+	Question.QuestionType.TEXT: "res://Scenes/QuestionView/QuestionText/QuestionText.tscn",
+	Question.QuestionType.IMAGE: "res://Scenes/QuestionView/QuestionImage/QuestionImage.tscn"
 }
 
 var AnswerScenes = {

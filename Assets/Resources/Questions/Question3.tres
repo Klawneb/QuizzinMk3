@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ImageQuestion" load_steps=2 format=3 uid="uid://rr6m4k4vb75l"]
+
+[ext_resource type="Script" path="res://Assets/Resources/ImageQuestion.gd" id="1_r2l30"]
+
+[resource]
+script = ExtResource("1_r2l30")
+image_path = "res://Assets/Images/1700524930893551.jpg"
+id = "dfc5189c-dae9-4a2b-96ee-81409cae4aaf"
+main_text = "This is an image question"
+answers = Array[String](["Mr Honse"])
+question_type = 1
+answer_type = 0
