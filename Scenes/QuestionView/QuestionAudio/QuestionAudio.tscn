@@ -60,9 +60,9 @@ text = "Volume:"
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 size_flags_vertical = 4
-min_value = -30.0
+min_value = -50.0
 max_value = 5.0
-value = -5.0
+value = -10.0
 
 [node name="PlayerControls" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2/VBoxContainer"]
 visible = false
