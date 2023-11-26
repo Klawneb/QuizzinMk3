@@ -5,6 +5,7 @@ enum QuestionType {
 	TEXT,
 	IMAGE,
 	AUDIO,
+	DRAWING,
 	NONE
 }
 

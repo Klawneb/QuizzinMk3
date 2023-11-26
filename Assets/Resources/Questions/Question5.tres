@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DrawingQuestion" load_steps=2 format=3 uid="uid://bk1no7tt7e2n1"]
+
+[ext_resource type="Script" path="res://Assets/Resources/DrawingQuestion.gd" id="1_fwldk"]
+
+[resource]
+script = ExtResource("1_fwldk")
+prompts = Array[String](["11111", "22222", "33333", "44444", "55555"])
+id = "67bb854a-346f-4202-acf3-1c7c9749a615"
+main_text = "This is a drawing Question"
+answers = Array[String]([])
+question_type = 3
+answer_type = 0
