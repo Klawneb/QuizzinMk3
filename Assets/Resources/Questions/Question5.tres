@@ -9,4 +9,4 @@ id = "67bb854a-346f-4202-acf3-1c7c9749a615"
 main_text = "This is a drawing Question"
 answers = Array[String]([])
 question_type = 3
-answer_type = 0
+answer_type = 1

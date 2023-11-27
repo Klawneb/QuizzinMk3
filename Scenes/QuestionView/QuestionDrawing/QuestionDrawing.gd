@@ -1,6 +1,8 @@
 extends QuestionBase
 
 @onready var center: Control = $Center
+@onready var prompt_label: Label = $Center/PromptLabel
+@onready var distribute_prompts_button: Button = $DistributePromptsButton
 
 var lines: Array = []
 var left_mouse_pressed: bool = false
@@ -8,6 +10,12 @@ var left_mouse_pressed: bool = false
 var brush_color: Color = Color.BLACK
 var brush_width: int = 1
 var canvas_color: Color = Color.WHITE
+
+func _ready() -> void:
+	QuestionManager.prompt_received.connect(on_prompt_received)
+	
+	if is_multiplayer_authority():
+		distribute_prompts_button.visible = true
 
 func _input(event: InputEvent) -> void:
 	var mouse_event = event as InputEventMouse
@@ -54,3 +62,10 @@ func _on_canvas_color_color_changed(color: Color) -> void:
 
 func _on_brush_width_value_changed(value: float) -> void:
 	brush_width = value
+
+func on_prompt_received(prompt: String):
+	prompt_label.text = prompt
+
+
+func _on_distribute_prompts_button_pressed() -> void:
+	QuestionManager.distribute_prompts(question.prompts)

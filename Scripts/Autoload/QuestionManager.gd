@@ -7,6 +7,7 @@ signal answer_reveal
 signal current_question_updated
 signal audio_played
 signal audio_stopped
+signal prompt_received
 
 var current_question
 
@@ -39,3 +40,15 @@ func emit_audio_played():
 @rpc("authority", "call_local", "reliable")
 func emit_audio_stopped():
 	audio_stopped.emit()
+	
+@rpc("authority", "call_local", "reliable")
+func emit_prompt(prompt: String):
+	prompt_received.emit(prompt)
+	
+@rpc("authority", "call_local", "reliable")
+func distribute_prompts(prompts: Array[String]):
+	var p = prompts.duplicate()
+	for multiplayer_id in multiplayer.get_peers():
+		var selected_prompt = p.pick_random()
+		p.erase(selected_prompt)
+		emit_prompt.rpc_id(multiplayer_id, selected_prompt)

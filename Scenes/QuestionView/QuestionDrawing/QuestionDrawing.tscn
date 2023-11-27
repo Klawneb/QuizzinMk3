@@ -66,7 +66,31 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 color = Color(1, 1, 1, 1)
 
+[node name="PromptLabel" type="Label" parent="Center"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -272.5
+offset_right = 20.0
+offset_bottom = -249.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DistributePromptsButton" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 43.0
+offset_top = 179.0
+offset_right = 245.0
+offset_bottom = 221.0
+text = "DISTRIBUTE PROMTPS"
+
 [connection signal="minimum_size_changed" from="." to="." method="_on_minimum_size_changed"]
 [connection signal="color_changed" from="Center/VBoxContainer/BrushColor" to="." method="_on_brush_color_color_changed"]
 [connection signal="value_changed" from="Center/VBoxContainer/BrushWidth" to="." method="_on_brush_width_value_changed"]
 [connection signal="color_changed" from="Center/VBoxContainer/CanvasColor" to="." method="_on_canvas_color_color_changed"]
+[connection signal="pressed" from="DistributePromptsButton" to="." method="_on_distribute_prompts_button_pressed"]
