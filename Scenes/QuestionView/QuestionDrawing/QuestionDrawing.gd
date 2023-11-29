@@ -1,15 +1,18 @@
 extends QuestionBase
 
 @onready var center: Control = $Center
-@onready var prompt_label: Label = $Center/PromptLabel
+@onready var prompt_label: Label = $Center/PromptContainer/PromptLabel
 @onready var distribute_prompts_button: Button = $DistributePromptsButton
+@onready var prompt_container: VBoxContainer = $Center/PromptContainer
 
 var lines: Array = []
 var left_mouse_pressed: bool = false
 
 var brush_color: Color = Color.BLACK
-var brush_width: int = 1
+var brush_width: int = 3
 var canvas_color: Color = Color.WHITE
+var prompt: String = ""
+var id: String = uuid.v4()
 
 func _ready() -> void:
 	QuestionManager.prompt_received.connect(on_prompt_received)
@@ -18,7 +21,6 @@ func _ready() -> void:
 		distribute_prompts_button.visible = true
 
 func _input(event: InputEvent) -> void:
-	var mouse_event = event as InputEventMouse
 	if event.is_action_pressed("left_mouse"):
 		left_mouse_pressed = true
 		add_new_line(brush_color, brush_width)
@@ -64,8 +66,12 @@ func _on_brush_width_value_changed(value: float) -> void:
 	brush_width = value
 
 func on_prompt_received(prompt: String):
+	prompt_container.visible = true
 	prompt_label.text = prompt
-
+	self.prompt = prompt
 
 func _on_distribute_prompts_button_pressed() -> void:
 	QuestionManager.distribute_prompts(question.prompts)
+
+func _on_button_pressed() -> void:
+	QuestionManager.add_art_question.rpc_id(1, NetworkManager.username, lines, prompt, canvas_color, id)

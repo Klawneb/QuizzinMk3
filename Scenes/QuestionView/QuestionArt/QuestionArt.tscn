@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg3yyyhupnb8o"]
+
+[ext_resource type="Script" path="res://Scenes/QuestionView/QuestionArt/QuestionArt.gd" id="1_qor7e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ybwbc"]
+font_size = 20
+
+[node name="QuestionArt" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_qor7e")
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -304.0
+offset_right = 20.0
+offset_bottom = -281.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_ybwbc")

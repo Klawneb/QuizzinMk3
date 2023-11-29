@@ -8,6 +8,7 @@ signal current_question_updated
 signal audio_played
 signal audio_stopped
 signal prompt_received
+signal question_list_updated
 
 var current_question
 
@@ -18,6 +19,33 @@ func load_question_list() -> Array:
 		questions.append(load("res://Assets/Resources/Questions/" + file))
 	
 	return questions
+
+@rpc('any_peer', 'call_local', 'reliable')
+func add_art_question(artist: String, line_data: Array, prompt: String, canvas_color: Color, id: String) -> void:
+	if question_exists(id):
+		remove_question_id(id)
+	var question = ArtQuestion.new()
+	question.artist = artist
+	question.line_data = line_data
+	question.answers.append(prompt)
+	question.question_type = question.QuestionType.ART
+	question.answer_type = question.AnswerType.TEXT
+	question.id = id
+	question.main_text = artist + "'s drawing"
+	question.canvas_color = canvas_color
+	question_list.append(question)
+	question_list_updated.emit()
+
+func question_exists(id: String):
+	for question in question_list:
+		if question.id == id:
+			return true
+	return false
+
+func remove_question_id(id: String):
+	for question in question_list:
+		if question.id == id:
+			question_list.erase(question)
 
 #Broadcast the question to load to everyone
 @rpc("authority", "call_local", "reliable")
