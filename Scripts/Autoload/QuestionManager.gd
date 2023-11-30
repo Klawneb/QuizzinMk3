@@ -80,3 +80,5 @@ func distribute_prompts(prompts: Array[String]):
 		var selected_prompt = p.pick_random()
 		p.erase(selected_prompt)
 		emit_prompt.rpc_id(multiplayer_id, selected_prompt)
+
+

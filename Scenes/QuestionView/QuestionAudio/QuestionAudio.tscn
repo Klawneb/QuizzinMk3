@@ -44,6 +44,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="VBoxContainer/VBoxContainer2/VBoxContainer"]
+bus = &"Music"
 
 [node name="SongProgress" type="ProgressBar" parent="VBoxContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2

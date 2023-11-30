@@ -4,6 +4,8 @@ extends QuestionBase
 @onready var answer_mark_container: HBoxContainer = %AnswerMarkContainer
 
 func _ready() -> void:
+	if not question:
+		return
 	load_your_answer()
 	load_answer_marking()
 

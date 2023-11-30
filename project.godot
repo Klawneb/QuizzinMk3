@@ -28,6 +28,10 @@ AnswerManager="*res://Scripts/Autoload/AnswerManager.gd"
 
 gdscript/warnings/shadowed_variable=0
 
+[gui]
+
+theme/custom="res://Assets/Resources/Theme/MainTheme.tres"
+
 [input]
 
 left_mouse={

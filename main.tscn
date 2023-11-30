@@ -1,10 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://cn7tw6m0dmpv"]
+[gd_scene load_steps=7 format=3 uid="uid://cn7tw6m0dmpv"]
 
 [ext_resource type="PackedScene" uid="uid://btyjtdjdh8ot0" path="res://Scenes/MainMenu/MainMenu.tscn" id="1_c5kaf"]
 [ext_resource type="Script" path="res://main.gd" id="1_wa5bq"]
+[ext_resource type="Shader" path="res://Scenes/MainMenu/squiggle.gdshader" id="2_30rbj"]
+[ext_resource type="Texture2D" uid="uid://bxn7pa4qpfe5a" path="res://Assets/Images/squiggles.png" id="3_ipb3d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vl4pg"]
+shader = ExtResource("2_30rbj")
+shader_parameter/scroll_speed = 0.08
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0y3r8"]
+texture = ExtResource("3_ipb3d")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [node name="main" type="Node"]
 script = ExtResource("1_wa5bq")
+
+[node name="Panel" type="Panel" parent="."]
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_vl4pg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0y3r8")
 
 [node name="quiz_container" type="Node" parent="."]
 
