@@ -27,14 +27,19 @@ func create_client(username: String, ip_address: String) -> void:
 
 # Runs on clients when they connect to the server
 func on_connected_to_server() -> void:
-	SceneManager.load_scene("res://Scenes/Lobby/Lobby.tscn")
+	SceneManager.get_game_started.rpc_id(1)
+	await get_tree().create_timer(1).timeout 
+	print(SceneManager.game_started)
+	if SceneManager.game_started:
+		SceneManager.load_scene("res://Scenes/QuestionView/QuestionView.tscn")	
+	else:
+		SceneManager.load_scene("res://Scenes/Lobby/Lobby.tscn")
 	UserManager.get_existing_users.rpc_id(1, multiplayer.get_unique_id())
 	UserManager.add_user.rpc_id(1, Utils.personal_id, multiplayer.get_unique_id(), self.username)
 
 # Runs on clients when they lose connection to the server
 func on_server_disconnected() -> void:
-	SceneManager.load_scene("res://Scenes/MainMenu/MainMenu.tscn")
-	UserManager.user_list.clear()
+	SceneManager.return_to_main_menu()
 	OS.alert("Server Disconnected")
 
 # Runs on all clients when a client disconnects

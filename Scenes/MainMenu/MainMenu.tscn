@@ -1,7 +1,74 @@
-[gd_scene load_steps=3 format=3 uid="uid://btyjtdjdh8ot0"]
+[gd_scene load_steps=8 format=3 uid="uid://btyjtdjdh8ot0"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/MainMenu.gd" id="1_jl87q"]
+[ext_resource type="FontFile" uid="uid://brpgtwjyv5e0e" path="res://Assets/Resources/Fonts/StrangerThings-Regular.ttf" id="2_7ecsr"]
 [ext_resource type="Texture2D" uid="uid://bxn7pa4qpfe5a" path="res://Assets/Images/squiggles.png" id="3_qbj2t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3v4yw"]
+font = ExtResource("2_7ecsr")
+font_size = 28
+
+[sub_resource type="Animation" id="Animation_qwn3f"]
+resource_name = "idle"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 4
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3, 4.5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.00872665, -0.00872665, 0.00872665, -0.00872665, 0.00872665]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_hoagj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0872665]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_50b51"]
+_data = {
+"RESET": SubResource("Animation_hoagj"),
+"idle": SubResource("Animation_qwn3f")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -11,6 +78,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jl87q")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -230.0
+offset_right = 220.0
+offset_bottom = -149.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0872665
+pivot_offset = Vector2(215, 45)
+size_flags_horizontal = 4
+text = "Ben's Scuffed Christmas Quiz
+Mk3: The Requizzening"
+label_settings = SubResource("LabelSettings_3v4yw")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+libraries = {
+"": SubResource("AnimationLibrary_50b51")
+}
+autoplay = "idle"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -31,13 +125,8 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Quizzin Mk3: The Requizzining"
-horizontal_alignment = 1
 
 [node name="HostButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
