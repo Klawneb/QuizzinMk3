@@ -1,8 +1,10 @@
 extends Node
 
 var user_list: Dictionary = {}
+var wokeness := 0
 
 signal user_list_updated
+signal wokeness_updated
 
 @rpc("any_peer", "call_remote", "reliable")
 func add_user(personal_id: String, multiplayer_id: int, username: String) -> void:
@@ -15,7 +17,6 @@ func add_user(personal_id: String, multiplayer_id: int, username: String) -> voi
 		user_list[personal_id] = {
 			"username": username,
 			"multiplayer_id": multiplayer_id,
-			"score": 0,
 			"connected": true
 		}
 	

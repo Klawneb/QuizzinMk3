@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://52toeri0axy3"]
+[gd_scene load_steps=4 format=3 uid="uid://52toeri0axy3"]
 
 [ext_resource type="PackedScene" uid="uid://c4ixbxk43au8o" path="res://Scenes/QuestionView/QuestionView.tscn" id="1_8ifo2"]
 [ext_resource type="Script" path="res://Scenes/HostView/HostView.gd" id="1_q3u5m"]
+[ext_resource type="Script" path="res://Scenes/HostView/CurrentAnswers.gd" id="3_oo2t1"]
 
 [node name="HostView" type="Control"]
 layout_mode = 3
@@ -68,5 +69,16 @@ layout_mode = 2
 [node name="QuestionView" parent="TabContainer/QuestionView/HBoxContainer" instance=ExtResource("1_8ifo2")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="CurrentAnswers" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("3_oo2t1")
+
+[node name="UserAnswers" type="VBoxContainer" parent="TabContainer/CurrentAnswers"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
 
 [connection signal="pressed" from="TabContainer/QuestionView/HBoxContainer/HostSidePanel/MarginContainer/QuestionControls/RevealAnswerButton" to="." method="_on_reveal_answer_button_pressed"]

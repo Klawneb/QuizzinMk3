@@ -3,6 +3,8 @@ extends Node
 var quiz_container: Node
 
 signal start_quiz
+signal settings_opened
+
 var game_started := false
 
 func _ready() -> void:

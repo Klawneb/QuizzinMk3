@@ -26,6 +26,12 @@ func get_answer(question_id: String, personal_id: String) -> String:
 	
 	return ""
 
+func get_answer_score(question_id: String, personal_id: String) -> int:
+	if answer_exists(question_id, personal_id):
+		return answers[question_id][personal_id].score
+	
+	return 0
+
 func answer_exists(question_id: String, personal_id: String):
 	if answers.has(question_id):
 		if answers[question_id].has(personal_id):

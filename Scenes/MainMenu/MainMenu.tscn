@@ -1,12 +1,40 @@
-[gd_scene load_steps=8 format=3 uid="uid://btyjtdjdh8ot0"]
+[gd_scene load_steps=10 format=3 uid="uid://btyjtdjdh8ot0"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/MainMenu.gd" id="1_jl87q"]
 [ext_resource type="FontFile" uid="uid://brpgtwjyv5e0e" path="res://Assets/Resources/Fonts/StrangerThings-Regular.ttf" id="2_7ecsr"]
+[ext_resource type="Texture2D" uid="uid://b4l0qqwbvqs25" path="res://Assets/Images/hseperator.png" id="3_2tbdh"]
 [ext_resource type="Texture2D" uid="uid://bxn7pa4qpfe5a" path="res://Assets/Images/squiggles.png" id="3_qbj2t"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3v4yw"]
 font = ExtResource("2_7ecsr")
-font_size = 28
+font_size = 32
+
+[sub_resource type="Animation" id="Animation_hoagj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0872665]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_qwn3f"]
 resource_name = "idle"
@@ -37,38 +65,18 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(1.05, 1.05)]
 }
 
-[sub_resource type="Animation" id="Animation_hoagj"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-0.0872665]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_50b51"]
 _data = {
 "RESET": SubResource("Animation_hoagj"),
 "idle": SubResource("Animation_qwn3f")
 }
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5gn2h"]
+texture = ExtResource("3_2tbdh")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -87,9 +95,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -210.0
-offset_top = -230.0
+offset_top = -264.0
 offset_right = 220.0
-offset_bottom = -149.0
+offset_bottom = -183.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.0872665
@@ -138,14 +146,41 @@ text = "127.0.0.1"
 alignment = 1
 editable = false
 
-[node name="JoinButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Join"
-
 [node name="UsernameInput" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Username"
 alignment = 1
+
+[node name="PronounSelector" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/arrow_margin = 14
+alignment = 1
+item_count = 4
+selected = 0
+popup/item_0/text = "Pronouns"
+popup/item_0/id = 2
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "He / Him"
+popup/item_1/id = 0
+popup/item_2/text = "She / Her"
+popup/item_2/id = 1
+popup/item_3/text = "They / Them"
+popup/item_3/id = 3
+
+[node name="JoinButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" groups=["UI_Button"]]
+layout_mode = 2
+text = "Join"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxTexture_5gn2h")
+
+[node name="SettingsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" groups=["UI_Button"]]
+layout_mode = 2
+text = "Settings"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
@@ -159,3 +194,4 @@ texture = ExtResource("3_qbj2t")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

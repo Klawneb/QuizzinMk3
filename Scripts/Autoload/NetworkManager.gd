@@ -27,9 +27,9 @@ func create_client(username: String, ip_address: String) -> void:
 
 # Runs on clients when they connect to the server
 func on_connected_to_server() -> void:
+	SceneManager.load_scene("res://Scenes/MainMenu/Connecting/Connecting.tscn")
 	SceneManager.get_game_started.rpc_id(1)
-	await get_tree().create_timer(1).timeout 
-	print(SceneManager.game_started)
+	await get_tree().create_timer(1).timeout
 	if SceneManager.game_started:
 		SceneManager.load_scene("res://Scenes/QuestionView/QuestionView.tscn")	
 	else:

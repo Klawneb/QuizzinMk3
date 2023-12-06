@@ -10,7 +10,7 @@ signal audio_stopped
 signal prompt_received
 signal question_list_updated
 
-var current_question
+var current_question: Question
 
 func load_question_list() -> Array:
 	var questions: Array = []

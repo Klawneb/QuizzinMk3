@@ -9,3 +9,6 @@ func _on_quit_button_pressed() -> void:
 
 func _on_close_button_pressed() -> void:
 	self.visible = false
+
+func _on_settings_button_pressed() -> void:
+	SceneManager.settings_opened.emit()
