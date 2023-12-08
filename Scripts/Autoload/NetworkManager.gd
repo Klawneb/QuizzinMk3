@@ -15,6 +15,8 @@ func create_server(username: String) -> void:
 	var err: Error = peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
 	
+	print(err)
+	
 	if err == OK:
 		SceneManager.load_scene("res://Scenes/Lobby/Lobby.tscn")
 		UserManager.add_user(Utils.personal_id, 1, username)

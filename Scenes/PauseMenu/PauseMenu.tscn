@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c24yxlhy3uu0q"]
+[gd_scene load_steps=11 format=3 uid="uid://c24yxlhy3uu0q"]
 
 [ext_resource type="Script" path="res://Scenes/PauseMenu/PauseMenu.gd" id="1_3np32"]
+[ext_resource type="PackedScene" uid="uid://bd4nl8lu11j5f" path="res://Scenes/UISounds/UISounds.tscn" id="2_8slv5"]
 [ext_resource type="Texture2D" uid="uid://dn3ojebkx0e2w" path="res://Assets/Images/cross.png" id="2_p1rm3"]
 [ext_resource type="Texture2D" uid="uid://dbcko8fn5l8ut" path="res://Assets/Images/cross-highlight.png" id="3_qn54a"]
 
@@ -27,6 +28,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3np32")
+
+[node name="UISounds" parent="." instance=ExtResource("2_8slv5")]
 
 [node name="PanelContainer2" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0.866667)

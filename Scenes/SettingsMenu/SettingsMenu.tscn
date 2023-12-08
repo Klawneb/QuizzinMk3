@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bvw6nedrmtxwa"]
+[gd_scene load_steps=5 format=3 uid="uid://bvw6nedrmtxwa"]
 
 [ext_resource type="Script" path="res://Scenes/SettingsMenu/SettingsMenu.gd" id="1_4ddai"]
 [ext_resource type="Texture2D" uid="uid://cw1d8apatpixk" path="res://Assets/Images/gayge.png" id="2_kyt4e"]
+[ext_resource type="PackedScene" uid="uid://bd4nl8lu11j5f" path="res://Scenes/UISounds/UISounds.tscn" id="2_rdk30"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vdxiw"]
 texture = ExtResource("2_kyt4e")
@@ -11,7 +12,7 @@ expand_margin_right = 3.0
 expand_margin_bottom = 4.0
 
 [node name="SettingsMenu" type="Control"]
-custom_minimum_size = Vector2(300, 300)
+custom_minimum_size = Vector2(400, 300)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -21,6 +22,8 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4ddai")
+
+[node name="UISounds" parent="." instance=ExtResource("2_rdk30")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -59,6 +62,7 @@ text = "Music"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+step = 5.0
 value = 50.0
 
 [node name="MusicVolumeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
@@ -79,6 +83,7 @@ text = "Sound Effects"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+step = 5.0
 value = 50.0
 
 [node name="SFXVolumeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
@@ -95,7 +100,7 @@ tooltip_text = "Spiderman 2 eat your heart out."
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Wokeness"
+text = "Politics"
 
 [node name="WokenessSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2

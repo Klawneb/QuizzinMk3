@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cn7tw6m0dmpv"]
+[gd_scene load_steps=12 format=3 uid="uid://cn7tw6m0dmpv"]
 
 [ext_resource type="PackedScene" uid="uid://btyjtdjdh8ot0" path="res://Scenes/MainMenu/MainMenu.tscn" id="1_c5kaf"]
 [ext_resource type="Script" path="res://main.gd" id="1_wa5bq"]
 [ext_resource type="Shader" path="res://Scenes/MainMenu/squiggle.gdshader" id="2_30rbj"]
 [ext_resource type="Texture2D" uid="uid://bxn7pa4qpfe5a" path="res://Assets/Images/squiggles.png" id="3_ipb3d"]
+[ext_resource type="Theme" uid="uid://c3q0sieouaawf" path="res://Assets/Resources/Theme/MainTheme.tres" id="4_pmbva"]
 [ext_resource type="PackedScene" uid="uid://bvw6nedrmtxwa" path="res://Scenes/SettingsMenu/SettingsMenu.tscn" id="5_te1y2"]
+[ext_resource type="VideoStream" path="res://Assets/Video/fnaf.mp4" id="7_lq0l6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vl4pg"]
 shader = ExtResource("2_30rbj")
@@ -14,6 +16,11 @@ shader_parameter/scroll_speed = 0.08
 texture = ExtResource("3_ipb3d")
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
+
+[sub_resource type="SystemFont" id="SystemFont_sysi0"]
+
+[sub_resource type="Theme" id="Theme_156oe"]
+default_font = SubResource("SystemFont_sysi0")
 
 [node name="main" type="Node"]
 script = ExtResource("1_wa5bq")
@@ -29,14 +36,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_0y3r8")
 
-[node name="quiz_container" type="Node" parent="."]
+[node name="quiz_container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_pmbva")
 
 [node name="main_menu" parent="quiz_container" instance=ExtResource("1_c5kaf")]
+layout_mode = 1
 
 [node name="DebugMenu" type="Window" parent="."]
 initial_position = 1
 size = Vector2i(500, 500)
 visible = false
+theme = SubResource("Theme_156oe")
 
 [node name="TabContainer" type="TabContainer" parent="DebugMenu"]
 anchors_preset = 15
@@ -66,5 +82,28 @@ text = "DEBUG"
 
 [node name="SettingsMenu" parent="." instance=ExtResource("5_te1y2")]
 visible = false
+theme = ExtResource("4_pmbva")
+
+[node name="Tooltip" type="PanelContainer" parent="."]
+visible = false
+offset_right = 200.0
+offset_bottom = 77.0
+mouse_filter = 1
+theme = ExtResource("4_pmbva")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Tooltip"]
+visible = false
+layout_mode = 2
+stream = ExtResource("7_lq0l6")
+volume_db = -10.0
+
+[node name="TooltipLabel" type="RichTextLabel" parent="Tooltip"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Some tooltip text"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+shortcut_keys_enabled = false
 
 [connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]

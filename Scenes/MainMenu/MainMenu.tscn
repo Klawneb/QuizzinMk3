@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://btyjtdjdh8ot0"]
+[gd_scene load_steps=11 format=3 uid="uid://btyjtdjdh8ot0"]
 
 [ext_resource type="Script" path="res://Scenes/MainMenu/MainMenu.gd" id="1_jl87q"]
 [ext_resource type="FontFile" uid="uid://brpgtwjyv5e0e" path="res://Assets/Resources/Fonts/StrangerThings-Regular.ttf" id="2_7ecsr"]
+[ext_resource type="PackedScene" uid="uid://bd4nl8lu11j5f" path="res://Scenes/UISounds/UISounds.tscn" id="2_vehds"]
 [ext_resource type="Texture2D" uid="uid://b4l0qqwbvqs25" path="res://Assets/Images/hseperator.png" id="3_2tbdh"]
-[ext_resource type="Texture2D" uid="uid://bxn7pa4qpfe5a" path="res://Assets/Images/squiggles.png" id="3_qbj2t"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3v4yw"]
 font = ExtResource("2_7ecsr")
@@ -71,6 +71,10 @@ _data = {
 "idle": SubResource("Animation_qwn3f")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_mlo3y"]
+font = ExtResource("2_7ecsr")
+font_size = 26
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5gn2h"]
 texture = ExtResource("3_2tbdh")
 texture_margin_left = 2.0
@@ -86,6 +90,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jl87q")
+
+[node name="UISounds" parent="." instance=ExtResource("2_vehds")]
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -113,6 +119,23 @@ libraries = {
 "": SubResource("AnimationLibrary_50b51")
 }
 autoplay = "idle"
+
+[node name="Label" type="Label" parent="Label"]
+layout_mode = 0
+offset_left = 432.718
+offset_top = 52.002
+offset_right = 472.718
+offset_bottom = 88.002
+rotation = -0.250848
+tooltip_text = "Quizzin Mk2 sadly had to be taken out back and 
+shot halfway into development because it was too shittily coded to see the 
+light of day.
+
+Not that this iteration isn't shittily coded, but hey, 
+it's here right?"
+mouse_filter = 1
+text = "*"
+label_settings = SubResource("LabelSettings_mlo3y")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -181,16 +204,6 @@ theme_override_styles/separator = SubResource("StyleBoxTexture_5gn2h")
 [node name="SettingsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer" groups=["UI_Button"]]
 layout_mode = 2
 text = "Settings"
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_qbj2t")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

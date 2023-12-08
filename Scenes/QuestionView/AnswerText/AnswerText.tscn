@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dq6e7iml8jk2n"]
+[gd_scene load_steps=5 format=3 uid="uid://dq6e7iml8jk2n"]
 
 [ext_resource type="Script" path="res://Scenes/QuestionView/AnswerText/AnswerText.gd" id="1_pxv3a"]
+[ext_resource type="PackedScene" uid="uid://bd4nl8lu11j5f" path="res://Scenes/UISounds/UISounds.tscn" id="2_124eh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_d1dbf"]
 font_size = 12
@@ -19,6 +20,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_pxv3a")
+
+[node name="UISounds" parent="." instance=ExtResource("2_124eh")]
 
 [node name="InputContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bn8xrnsdkk7cj"]
+[gd_scene load_steps=3 format=3 uid="uid://bn8xrnsdkk7cj"]
 
 [ext_resource type="Script" path="res://Scenes/QuestionView/AnswerRevealed/AnswerMark.gd" id="1_vmwm6"]
+[ext_resource type="PackedScene" uid="uid://bd4nl8lu11j5f" path="res://Scenes/UISounds/UISounds.tscn" id="2_3eyoy"]
 
 [node name="AnswerMark" type="VBoxContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_vmwm6")
+
+[node name="UISounds" parent="." instance=ExtResource("2_3eyoy")]
 
 [node name="AnswerLabel" type="Label" parent="."]
 layout_mode = 2

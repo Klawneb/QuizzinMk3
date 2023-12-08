@@ -23,14 +23,11 @@ NetworkManager="*res://Scripts/Autoload/NetworkManager.gd"
 UserManager="*res://Scripts/Autoload/UserManager.gd"
 QuestionManager="*res://Scripts/Autoload/QuestionManager.gd"
 AnswerManager="*res://Scripts/Autoload/AnswerManager.gd"
+SoundManager="*res://Scripts/Autoload/SoundManager.gd"
 
 [debug]
 
 gdscript/warnings/shadowed_variable=0
-
-[gui]
-
-theme/custom="res://Assets/Resources/Theme/MainTheme.tres"
 
 [input]
 

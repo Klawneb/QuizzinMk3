@@ -2,6 +2,10 @@ extends Control
 
 @onready var question_container: BoxContainer = %QuestionContainer
 @onready var answer_container: BoxContainer = %AnswerContainer
+@onready var answer_list: VBoxContainer = $SidepanelContainer/Sidepanel/VBoxContainer/AnswerList
+@onready var sidepanel_animations: AnimationPlayer = $SidepanelContainer/Sidepanel/SidepanelAnimations
+
+var sidepanel_open: bool = false
 
 var QuestionScenes = {
 	Question.QuestionType.TEXT: "res://Scenes/QuestionView/QuestionText/QuestionText.tscn",
@@ -18,6 +22,9 @@ var AnswerScenes = {
 func _ready() -> void:
 	QuestionManager.question_load.connect(on_question_load)
 	QuestionManager.answer_reveal.connect(on_answer_revealed)
+	AnswerManager.answers_updated.connect(update_my_answers)
+	
+	update_my_answers()
 	
 func on_question_load(question: Question) -> void:
 	Utils.remove_all_children(question_container)
@@ -40,3 +47,22 @@ func on_answer_revealed():
 	var revealed_answer = load("res://Scenes/QuestionView/AnswerRevealed/AnswerRevealed.tscn").instantiate()
 	revealed_answer.init(QuestionManager.current_question)
 	answer_container.add_child(revealed_answer)
+
+func update_my_answers():
+	Utils.remove_all_children(answer_list)
+	var question_num = 0
+	for question_id in AnswerManager.answers:
+		question_num += 1
+		var answer_label = Label.new()
+		var my_answer = AnswerManager.get_answer(question_id, Utils.personal_id)
+		answer_label.text = str(question_num) + ". " + my_answer
+		answer_list.add_child(answer_label)
+
+
+func _on_texture_rect_pressed() -> void:
+	if sidepanel_open:
+		sidepanel_animations.play("close_sidepanel")
+	else:
+		sidepanel_animations.play("open_sidepanel")
+	
+	sidepanel_open = !sidepanel_open

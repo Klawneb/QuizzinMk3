@@ -10,7 +10,8 @@ func _ready() -> void:
 	AnswerManager.answers_updated.connect(update_existing_answer)
 	
 	if AnswerManager.get_answer(question.id, Utils.personal_id) == "":
-		AnswerManager.add_answer.rpc_id(1, question.id, Utils.personal_id, "")
+		if not is_multiplayer_authority():
+			AnswerManager.add_answer.rpc_id(1, question.id, Utils.personal_id, "")
 	
 	update_existing_answer()
 
