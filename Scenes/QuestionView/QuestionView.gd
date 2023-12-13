@@ -12,7 +12,8 @@ var QuestionScenes = {
 	Question.QuestionType.IMAGE: "res://Scenes/QuestionView/QuestionImage/QuestionImage.tscn",
 	Question.QuestionType.AUDIO: "res://Scenes/QuestionView/QuestionAudio/QuestionAudio.tscn",
 	Question.QuestionType.DRAWING: "res://Scenes/QuestionView/QuestionDrawing/QuestionDrawing.tscn",
-	Question.QuestionType.ART: "res://Scenes/QuestionView/QuestionArt/QuestionArt.tscn"
+	Question.QuestionType.ART: "res://Scenes/QuestionView/QuestionArt/QuestionArt.tscn",
+	Question.QuestionType.DEATHMATCH: "res://Scenes/Deathmatch/Deathmatch.tscn"
 }
 
 var AnswerScenes = {

@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://52toeri0axy3"]
+[gd_scene load_steps=4 format=3 uid="uid://52toeri0axy3"]
 
-[ext_resource type="PackedScene" uid="uid://c4ixbxk43au8o" path="res://Scenes/QuestionView/QuestionView.tscn" id="1_8ifo2"]
 [ext_resource type="Script" path="res://Scenes/HostView/HostView.gd" id="1_q3u5m"]
 [ext_resource type="PackedScene" uid="uid://bd4nl8lu11j5f" path="res://Scenes/UISounds/UISounds.tscn" id="2_pa6a1"]
 [ext_resource type="Script" path="res://Scenes/HostView/CurrentAnswers.gd" id="3_oo2t1"]
 
 [node name="HostView" type="Control"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,8 +36,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HostSidePanel" type="VBoxContainer" parent="TabContainer/QuestionView/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/QuestionView/HBoxContainer/HostSidePanel"]
 layout_mode = 2
@@ -66,15 +66,9 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "Reveal Answer"
 
-[node name="VSeparator" type="VSeparator" parent="TabContainer/QuestionView/HBoxContainer"]
-layout_mode = 2
-
-[node name="QuestionView" parent="TabContainer/QuestionView/HBoxContainer" instance=ExtResource("1_8ifo2")]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="CurrentAnswers" type="Control" parent="TabContainer"]
 visible = false
+clip_contents = true
 layout_mode = 2
 script = ExtResource("3_oo2t1")
 

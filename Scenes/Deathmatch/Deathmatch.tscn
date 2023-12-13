@@ -1,0 +1,105 @@
+[gd_scene load_steps=6 format=3 uid="uid://csu0h5pg7sndp"]
+
+[ext_resource type="PackedScene" uid="uid://coh3ha6ahql4r" path="res://Scenes/Deathmatch/enviroment.tscn" id="1_668i7"]
+[ext_resource type="Script" path="res://Scenes/Deathmatch/Deathmatch.gd" id="1_yr1s6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m4fd4"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_0grs7"]
+sky_material = SubResource("ProceduralSkyMaterial_m4fd4")
+
+[sub_resource type="Environment" id="Environment_e1ued"]
+background_mode = 2
+sky = SubResource("Sky_0grs7")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Deathmatch" type="Node"]
+script = ExtResource("1_yr1s6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e1ued")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Enviroment" parent="." instance=ExtResource("1_668i7")]
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Spawnpoints" type="Node3D" parent="."]
+
+[node name="Point" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 0)
+
+[node name="Point2" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 0)
+
+[node name="Point3" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 0)
+
+[node name="Point4" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="Point5" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 0)
+
+[node name="Point6" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)
+
+[node name="Point7" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 0)
+
+[node name="Point8" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, 0)
+
+[node name="Point9" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, 3)
+
+[node name="Point10" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 3)
+
+[node name="Point11" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 3)
+
+[node name="Point12" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
+
+[node name="Point13" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 3)
+
+[node name="Point14" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 3)
+
+[node name="Point15" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, 3)
+
+[node name="Point16" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, 3)
+
+[node name="Point17" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3, -3)
+
+[node name="Point18" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, -3)
+
+[node name="Point19" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, -3)
+
+[node name="Point20" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -3)
+
+[node name="Point21" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, -3)
+
+[node name="Point22" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -3)
+
+[node name="Point23" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -3)
+
+[node name="Point24" type="Node3D" parent="Spawnpoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3, -3)

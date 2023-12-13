@@ -4,12 +4,28 @@ var quiz_container: Node
 
 signal start_quiz
 signal settings_opened
+signal background_visibility_changed(bool)
+signal right_click_menu_changed(bool)
 
 var game_started := false
 
 func _ready() -> void:
 	if get_node("/root/main/quiz_container"):
 		quiz_container = get_node("/root/main/quiz_container")
+
+@rpc("authority", "call_local", "reliable")
+func load_host_view():
+	Utils.remove_all_children(quiz_container)
+	var host_view = load("res://Scenes/HostView/HostView.tscn").instantiate()
+	var question_view = load("res://Scenes/QuestionView/QuestionView.tscn").instantiate()
+	host_view.name = "HostView"
+	question_view.name = "QuestionView"
+	
+	if not is_multiplayer_authority():
+		host_view.visible = false
+	
+	quiz_container.add_child(host_view)
+	quiz_container.add_child(question_view)
 
 @rpc("authority", "call_remote", "reliable")
 func load_scene(scene_path: String) -> void:

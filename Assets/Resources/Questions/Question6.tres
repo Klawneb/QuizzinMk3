@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Question" load_steps=2 format=3 uid="uid://cgwwq8uj81bwt"]
+
+[ext_resource type="Script" path="res://Assets/Resources/Question.gd" id="1_6gxv8"]
+
+[resource]
+script = ExtResource("1_6gxv8")
+id = "5ee07c9c-7ebc-4823-864e-ea83f4662cd5"
+main_text = "DEATHMATCH"
+answers = Array[String]([])
+question_type = 5
+answer_type = 1

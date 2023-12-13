@@ -8,18 +8,25 @@ extends Node
 @onready var tooltip_label: RichTextLabel = $Tooltip/TooltipLabel
 @onready var tooltips = preload("res://Assets/Data/tooltip_text.gd").tooltips
 @onready var video_stream_player: VideoStreamPlayer = $Tooltip/VideoStreamPlayer
+@onready var background: Panel = $Background
 
 var tooltip_index = 0
+var right_click_menu_enabled = true
 
 func _ready() -> void:
 	UserManager.user_list_updated.connect(update_user_list)
 	AnswerManager.answers_updated.connect(update_answer_list)
 	SceneManager.settings_opened.connect(settings_menu.show_settings)
+	SceneManager.background_visibility_changed.connect(set_background_visibility)
+	SceneManager.right_click_menu_changed.connect(set_right_click_menu_enabled)
 	update_user_list()
 	update_answer_list()
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("right_mouse"):
+		if not right_click_menu_enabled:
+			return
+		
 		tooltip.visible = true
 		tooltip.position = event.position + Vector2(0, 20)
 		tooltip_label.text = tooltips[tooltip_index]
@@ -50,3 +57,9 @@ func update_user_list():
 
 func update_answer_list():
 	answer_list.text = var_to_str(AnswerManager.answers)
+
+func set_background_visibility(visible: bool) -> void:
+	background.visible = visible
+
+func set_right_click_menu_enabled(enabled: bool) -> void:
+	right_click_menu_enabled = enabled

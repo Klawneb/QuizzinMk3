@@ -19,6 +19,4 @@ func update_user_list() -> void:
 
 func _on_start_button_pressed() -> void:
 	SceneManager.set_game_started.rpc(true)
-	SceneManager.load_scene("res://Scenes/HostView/HostView.tscn")
-	SceneManager.load_scene.rpc("res://Scenes/QuestionView/QuestionView.tscn")
-	
+	SceneManager.load_host_view.rpc()

@@ -7,6 +7,7 @@ enum QuestionType {
 	AUDIO,
 	DRAWING,
 	ART,
+	DEATHMATCH,
 	NONE
 }
 
