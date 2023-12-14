@@ -5,15 +5,17 @@ extends CharacterBody3D
 @export var locomotionBlendPath: String
 @export var transitionSpeed: float = 10
 @export var locomotionStatePlaybackPath: String
+@export var aimingBlendPath: String
+@export var aiming: bool = false
 
 const SPEED = 5
 const JUMP_VELOCITY = 5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: float = 10.0
-
 var currentInput: Vector2
 var currentVelocity: Vector2
+var aimBlendAmount: float = 0
 
 func _enter_tree() -> void:
 	SceneManager.right_click_menu_changed.emit(false)
@@ -39,16 +41,26 @@ func _process(delta: float) -> void:
 	
 	currentVelocity += newDelta
 	
+	if aiming:
+		aimBlendAmount = lerp(aimBlendAmount, 0.95, delta * 10)
+	else:
+		aimBlendAmount = lerp(aimBlendAmount, 0., delta * 10)
 	animation_tree.set(locomotionBlendPath, currentVelocity)
+	animation_tree.set(aimingBlendPath, aimBlendAmount)
 
 func _input(event: InputEvent) -> void:
 	if is_on_floor() && Input.is_action_just_pressed("ui_accept"):
 		begin_jumping.rpc()
-	
+		
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * 0.005)
 		camera.rotate_x(-event.relative.y * 0.005)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
+	
+	if Input.is_action_just_pressed("right_mouse"):
+		aiming = true
+	if Input.is_action_just_released("right_mouse"):
+		aiming = false
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
@@ -74,4 +86,3 @@ func begin_jumping():
 	var playback = animation_tree.get(locomotionStatePlaybackPath) as AnimationNodeStateMachinePlayback
 	playback.travel("Jumping")
 	velocity.y += JUMP_VELOCITY
-	
