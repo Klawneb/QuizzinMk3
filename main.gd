@@ -16,7 +16,6 @@ var right_click_menu_enabled = true
 func _ready() -> void:
 	UserManager.user_list_updated.connect(update_user_list)
 	AnswerManager.answers_updated.connect(update_answer_list)
-	SceneManager.settings_opened.connect(settings_menu.show_settings)
 	SceneManager.background_visibility_changed.connect(set_background_visibility)
 	SceneManager.right_click_menu_changed.connect(set_right_click_menu_enabled)
 	update_user_list()

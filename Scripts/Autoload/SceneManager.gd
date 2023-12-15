@@ -4,10 +4,17 @@ var quiz_container: Node
 
 signal start_quiz
 signal settings_opened
+signal settings_closed
 signal background_visibility_changed(bool)
 signal right_click_menu_changed(bool)
 
 var game_started := false
+var global_mouse_mode: Input.MouseMode:
+	set(mouse_mode):
+		Input.mouse_mode = mouse_mode
+		global_mouse_mode = mouse_mode
+	get:
+		return global_mouse_mode
 
 func _ready() -> void:
 	if get_node("/root/main/quiz_container"):

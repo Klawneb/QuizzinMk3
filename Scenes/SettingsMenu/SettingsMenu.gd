@@ -15,7 +15,8 @@ func _ready() -> void:
 	music_volume_label.text = str(music_slider.value)
 	sfx_volume_label.text = str(sfx_slider.value)
 	wokeness_label.text = str(wokeness_slider.value)
-	
+	SceneManager.settings_opened.connect(show_settings)
+	SceneManager.settings_closed.connect(hide_settings)
 
 func _on_music_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(music_bus_index, lerp(-30, 5, value/100))
