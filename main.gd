@@ -9,6 +9,7 @@ extends Node
 @onready var tooltips = preload("res://Assets/Data/tooltip_text.gd").tooltips
 @onready var video_stream_player: VideoStreamPlayer = $Tooltip/VideoStreamPlayer
 @onready var background: Panel = $Background
+@onready var add_player: Button = $DebugMenu/TabContainer/DeathmatchDebug/VBoxContainer/AddPlayer
 
 var tooltip_index = 0
 var right_click_menu_enabled = true
@@ -62,3 +63,6 @@ func set_background_visibility(visible: bool) -> void:
 
 func set_right_click_menu_enabled(enabled: bool) -> void:
 	right_click_menu_enabled = enabled
+
+func _on_add_player_pressed() -> void:
+	SceneManager.add_player_debug.emit()

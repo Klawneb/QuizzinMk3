@@ -67,6 +67,22 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="DeathmatchDebug" type="Control" parent="DebugMenu/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugMenu/TabContainer/DeathmatchDebug"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddPlayer" type="Button" parent="DebugMenu/TabContainer/DeathmatchDebug/VBoxContainer"]
+layout_mode = 2
+text = "Add player"
+
 [node name="DebugButton" type="Button" parent="."]
 anchors_preset = 3
 anchor_left = 1.0
@@ -105,4 +121,5 @@ scroll_active = false
 autowrap_mode = 2
 shortcut_keys_enabled = false
 
+[connection signal="pressed" from="DebugMenu/TabContainer/DeathmatchDebug/VBoxContainer/AddPlayer" to="." method="_on_add_player_pressed"]
 [connection signal="pressed" from="DebugButton" to="." method="_on_debug_button_pressed"]

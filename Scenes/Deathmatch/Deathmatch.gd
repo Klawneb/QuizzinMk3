@@ -8,20 +8,41 @@ var question: Question
 
 func init(question: Question) -> void:
 	self.question = question
+
+func _enter_tree() -> void:
+	$MultiplayerSpawner.spawn_function = spawn_player
 	
 func _exit_tree() -> void:
-	SceneManager.background_visibility_changed.emit(true)	
+	SceneManager.background_visibility_changed.emit(true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SceneManager.background_visibility_changed.emit(false)
+	SceneManager.add_player_debug.connect(func(): $MultiplayerSpawner.spawn({
+					"multiplayer_id": randi(), 
+					"spawn_position": get_spawnpoints().pick_random().position
+					}))
 	
-	for user in UserManager.user_list.values():
-		if user.connected:
-			add_player(user.multiplayer_id)
+	if is_multiplayer_authority():
+		for user in UserManager.user_list.values():
+			if user.connected:
+				var spawn_position = get_spawnpoints().pick_random().position
+				$MultiplayerSpawner.spawn({
+					"multiplayer_id": user.multiplayer_id, 
+					"spawn_position": spawn_position
+					})
+			
+			await get_tree().create_timer(0.01).timeout
 
-func add_player(multiplayer_id: int) -> void:
+func spawn_player(data):
 	var player = PLAYER.instantiate()
-	player.name = str(multiplayer_id)
-	player.position = spawnpoints.pick_random().position
-	players.add_child(player)
+	player.name = str(data.multiplayer_id)
+	player.position = data.spawn_position
+	return player
+
+func get_spawnpoints() -> Array:
+	var available = []
+	for point in spawnpoints:
+		if point.empty:
+			available.append(point)
+	return available

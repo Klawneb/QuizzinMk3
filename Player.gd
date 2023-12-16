@@ -2,8 +2,9 @@ extends CharacterBody3D
 
 @onready var camera: Camera3D = $Head/Camera3D
 @export var animation_tree: AnimationTree
-@export var locomotionBlendPath: String
 @export var transitionSpeed: float = 10
+@export var locomotionBlendPath: String
+@export var sprintingBlendPath: String
 @export var locomotionStatePlaybackPath: String
 @export var aimingBlendPath: String
 @export var aiming: bool = false
@@ -11,7 +12,6 @@ extends CharacterBody3D
 @onready var player_model: Node3D = $PlayerModel
 @onready var spine_ik: SkeletonIK3D = $PlayerModel/Node/Skeleton3D/SpineIK
 @onready var head: Node3D = $Head
-
 @onready var footstep_player: AudioStreamPlayer3D = $PlayerAudio/FootstepPlayer
 @onready var footstep_raycast: RayCast3D = $Head/FootstepRaycast
 
@@ -21,6 +21,7 @@ const SPRINT_SPEED = 7.5
 const BASE_FOV = 90
 const FOV_CHANGE = 1
 
+var jumpQueued: bool
 var t_bob = 0.0
 var gravity: float = 10.0
 var currentInput: Vector2
@@ -30,6 +31,7 @@ var footstepPlayed = false
 var bob_amp = 0.04
 var bob_frequency = 4.0
 var speed = WALK_SPEED
+var sprinting = false
 
 
 func _enter_tree() -> void:
@@ -45,7 +47,7 @@ func _ready() -> void:
 	
 	if not is_multiplayer_authority(): return
 	
-	#player_model.visible = false	
+	player_model.visible = false	
 	SceneManager.global_mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
 
@@ -64,10 +66,14 @@ func _process(delta: float) -> void:
 	else:
 		aimBlendAmount = lerp(aimBlendAmount, 0., delta * 10)
 	animation_tree.set(locomotionBlendPath, currentVelocity)
+	animation_tree.set(sprintingBlendPath, currentVelocity)	
 	animation_tree.set(aimingBlendPath, aimBlendAmount)
 
 func _input(event: InputEvent) -> void:
-	if is_on_floor() && Input.is_action_just_pressed("ui_accept"):
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		return
+	
+	if is_on_floor() && Input.is_action_just_pressed("jump"):
 		begin_jumping.rpc()
 		
 	if event is InputEventMouseMotion:
@@ -85,6 +91,11 @@ func _physics_process(delta: float) -> void:
 	
 	if !is_on_floor():
 		velocity.y -= gravity * delta
+		jumpQueued = false
+	
+	if jumpQueued:
+		velocity.y = JUMP_VELOCITY
+		jumpQueued = false
 
 	currentInput = Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(currentInput.x, 0, currentInput.y)).normalized()
@@ -100,12 +111,19 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3)
 	
 	if Input.is_action_pressed("sprint"):
-		var playback = animation_tree.get(locomotionStatePlaybackPath) as AnimationNodeStateMachinePlayback
-		playback.travel("Sprinting")
-		if currentInput.y < 0:
-			speed = SPRINT_SPEED
+		if is_on_floor():
+			if currentInput.y < 0:
+					speed = SPRINT_SPEED
+			else:
+				speed = WALK_SPEED
 	else:
 		speed = WALK_SPEED
+	
+	if Input.is_action_just_pressed("sprint"):
+		begin_sprinting.rpc()
+	
+	if Input.is_action_just_released("sprint"):
+		begin_locomotion.rpc()
 	
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
@@ -131,17 +149,26 @@ func _physics_process(delta: float) -> void:
 		footstepPlayed = false
 	
 	move_and_slide()
-
-@rpc("any_peer", 'call_local')
-func default_locomotion():
+	
+@rpc("any_peer", 'call_local', "unreliable")
+func begin_sprinting():
 	var playback = animation_tree.get(locomotionStatePlaybackPath) as AnimationNodeStateMachinePlayback
+	animation_tree.set("parameters/StateMachine/conditions/is_sprinting", true)	
+	playback.travel("Sprinting")
+
+@rpc("any_peer", 'call_local', "unreliable")
+func begin_locomotion():
+	var playback = animation_tree.get(locomotionStatePlaybackPath) as AnimationNodeStateMachinePlayback
+	animation_tree.set("parameters/StateMachine/conditions/is_sprinting", false)
 	playback.travel("Locomotion")
 
 @rpc("any_peer", 'call_local', "unreliable")
 func begin_jumping():
 	var playback = animation_tree.get(locomotionStatePlaybackPath) as AnimationNodeStateMachinePlayback
 	playback.travel("Jumping")
-	velocity.y += JUMP_VELOCITY
+
+func execute_jump():
+	jumpQueued = true
 
 func headbob(time: float):
 	var pos = Vector3.ZERO

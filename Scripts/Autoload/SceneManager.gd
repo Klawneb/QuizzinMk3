@@ -7,6 +7,7 @@ signal settings_opened
 signal settings_closed
 signal background_visibility_changed(bool)
 signal right_click_menu_changed(bool)
+signal add_player_debug
 
 var game_started := false
 var global_mouse_mode: Input.MouseMode:
