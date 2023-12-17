@@ -13,7 +13,7 @@ var QuestionScenes = {
 	Question.QuestionType.AUDIO: "res://Scenes/QuestionView/QuestionAudio/QuestionAudio.tscn",
 	Question.QuestionType.DRAWING: "res://Scenes/QuestionView/QuestionDrawing/QuestionDrawing.tscn",
 	Question.QuestionType.ART: "res://Scenes/QuestionView/QuestionArt/QuestionArt.tscn",
-	Question.QuestionType.DEATHMATCH: "res://Scenes/Deathmatch/Deathmatch.tscn"
+	Question.QuestionType.DEATHMATCH: "res://Scenes/Deathmatch/DeathmatchLobby.tscn"
 }
 
 var AnswerScenes = {

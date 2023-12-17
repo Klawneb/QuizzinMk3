@@ -14,6 +14,11 @@ extends CharacterBody3D
 @onready var head: Node3D = $Head
 @onready var footstep_player: AudioStreamPlayer3D = $PlayerAudio/FootstepPlayer
 @onready var footstep_raycast: RayCast3D = $Head/FootstepRaycast
+@onready var speed_label: Label = $speed_label
+@onready var name_label: Label3D = $Username
+@onready var view_model_camera: Camera3D = $Head/Camera3D/SubViewportContainer/SubViewport/ViewModelCamera
+@onready var bullet_impact_player: AudioStreamPlayer3D = $PlayerAudio/BulletImpactPlayer
+@onready var damage_vignette: ColorRect = $Head/Camera3D/DamageVignette
 
 const WALK_SPEED = 5
 const JUMP_VELOCITY = 5
@@ -31,8 +36,11 @@ var footstepPlayed = false
 var bob_amp = 0.04
 var bob_frequency = 4.0
 var speed = WALK_SPEED
+var bhop_speed = 0
+var bhop_reducer = 0
 var sprinting = false
-
+var username: String = ""
+var health: float = 100
 
 func _enter_tree() -> void:
 	SceneManager.right_click_menu_changed.emit(false)
@@ -43,10 +51,16 @@ func _exit_tree() -> void:
 	SceneManager.global_mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _ready() -> void:
+	name_label.text = username
 	spine_ik.start()
 	
 	if not is_multiplayer_authority(): return
 	
+	$Head/Camera3D/SubViewportContainer/SubViewport.size = DisplayServer.window_get_size()
+	$Head/Camera3D/SubViewportContainer.visible = true
+	view_model_camera.visible = true
+	
+	name_label.visible = false
 	player_model.visible = false	
 	SceneManager.global_mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
@@ -68,6 +82,8 @@ func _process(delta: float) -> void:
 	animation_tree.set(locomotionBlendPath, currentVelocity)
 	animation_tree.set(sprintingBlendPath, currentVelocity)	
 	animation_tree.set(aimingBlendPath, aimBlendAmount)
+	
+	view_model_camera.movement_sway(currentVelocity)	
 
 func _input(event: InputEvent) -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -80,35 +96,55 @@ func _input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * 0.005)
 		camera.rotate_x(-event.relative.y * 0.005)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
+		view_model_camera.directional_sway(Vector2(event.relative.x, event.relative.y))
 	
 	if Input.is_action_just_pressed("right_mouse"):
 		aiming = true
+		view_model_camera.start_aiming()
 	if Input.is_action_just_released("right_mouse"):
 		aiming = false
+		view_model_camera.stop_aiming()
+	
+	if Input.is_action_just_pressed("reload"):
+		view_model_camera.reload()
 
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
 	
+	if Input.is_action_pressed("left_mouse"):
+		view_model_camera.shoot()
+	
+	$Head/Camera3D/SubViewportContainer/SubViewport/ViewModelCamera.global_transform = camera.global_transform
+	damage_vignette.material.set_shader_parameter("vignette_opacity", 1 - health/100)	
+	
 	if !is_on_floor():
+		bhop_reducer = 0
 		velocity.y -= gravity * delta
 		jumpQueued = false
 	
 	if jumpQueued:
 		velocity.y = JUMP_VELOCITY
+		bhop_speed += 0.5
 		jumpQueued = false
+	
+	var total_speed = speed + bhop_speed
+	speed_label.text = "speed: " + str(total_speed)
 
 	currentInput = Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(currentInput.x, 0, currentInput.y)).normalized()
 	if is_on_floor():
+		bhop_reducer += 0.0025
+		bhop_speed -= lerp(0., float(bhop_speed), bhop_reducer)
 		if direction:
-			velocity.x = direction.x * speed
-			velocity.z = direction.z * speed
+			velocity.x = direction.x * total_speed
+			velocity.z = direction.z * total_speed
 		else:
-			velocity.x = lerp(velocity.x, direction.x * speed, delta * 8)
-			velocity.z = lerp(velocity.z, direction.z * speed, delta * 8)
+			velocity.x = lerp(velocity.x, direction.x * total_speed, delta * 8)
+			velocity.z = lerp(velocity.z, direction.z * total_speed, delta * 8)
 	else:
-		velocity.x = lerp(velocity.x, direction.x * speed, delta * 3)
-		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3)
+		velocity.x = lerp(velocity.x, direction.x * total_speed, delta * 3)
+		velocity.z = lerp(velocity.z, direction.z * total_speed, delta * 3)
+	
 	
 	if Input.is_action_pressed("sprint"):
 		if is_on_floor():
@@ -179,3 +215,12 @@ func headbob(time: float):
 @rpc("any_peer", "call_local", "unreliable")
 func play_footstep():
 	footstep_player.play()
+
+@rpc("any_peer")
+func receive_damage(damage: int):
+	health -= damage
+	bullet_impact_player.pitch_scale = randf_range(0.8, 1.2)
+	bullet_impact_player.play()
+	if health <= 0:
+		health = 100
+		position = Vector3.ZERO

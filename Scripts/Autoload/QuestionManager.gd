@@ -16,6 +16,9 @@ func load_question_list() -> Array:
 	var questions: Array = []
 	var question_dir = DirAccess.open("res://Assets/Resources/Questions/")
 	for file in question_dir.get_files():
+		if file.ends_with(".remap"):
+			file = file.trim_suffix(".remap")
+		
 		questions.append(load("res://Assets/Resources/Questions/" + file))
 	
 	return questions

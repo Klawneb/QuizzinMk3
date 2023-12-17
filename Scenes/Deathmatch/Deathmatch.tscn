@@ -34,7 +34,7 @@ shadow_enabled = true
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Deathmatch/player.tscn")
 spawn_path = NodePath("../Players")
-spawn_limit = 8
+spawn_limit = 16
 
 [node name="Spawnpoints" type="Node3D" parent="."]
 
@@ -49,3 +49,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10942, 6)
 
 [node name="SpawnPoint 4" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10942, -6)
+
+[node name="SpawnPoint 5" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10942, 25)
+
+[node name="SpawnPoint 6" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 3.10942, 25)
+
+[node name="SpawnPoint 7" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.10942, 25)
+
+[node name="SpawnPoint 8" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10942, -24)
+
+[node name="SpawnPoint 9" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 3.10942, -24)
+
+[node name="SpawnPoint 10" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 3.10942, -24)
+
+[node name="SpawnPoint 11" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24.1667, 3.10942, 0.166666)
+
+[node name="SpawnPoint 12" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24.1667, 3.10942, -12.8333)
+
+[node name="SpawnPoint 13" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -24.1667, 3.10942, 14.1667)
+
+[node name="SpawnPoint 14" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24.8333, 3.10942, 0.166668)
+
+[node name="SpawnPoint 15" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24.8333, 3.10942, -12.8333)
+
+[node name="SpawnPoint 16" parent="Spawnpoints" instance=ExtResource("3_5yh5d")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 24.8333, 3.10942, 14.1667)

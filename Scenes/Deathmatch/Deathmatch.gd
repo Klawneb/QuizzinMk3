@@ -28,7 +28,8 @@ func _ready() -> void:
 			if user.connected:
 				var spawn_position = get_spawnpoints().pick_random().position
 				$MultiplayerSpawner.spawn({
-					"multiplayer_id": user.multiplayer_id, 
+					"multiplayer_id": user.multiplayer_id,
+					"username": user.username,
 					"spawn_position": spawn_position
 					})
 			
@@ -37,6 +38,7 @@ func _ready() -> void:
 func spawn_player(data):
 	var player = PLAYER.instantiate()
 	player.name = str(data.multiplayer_id)
+	player.username = data.username
 	player.position = data.spawn_position
 	return player
 
