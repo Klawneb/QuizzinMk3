@@ -69,7 +69,6 @@ func shoot_audio():
 	fire.play()
 
 func start_aiming():
-	print("aiming")
 	aiming = true
 	var playback = animation_tree.get("parameters/playback") as AnimationNodeStateMachinePlayback
 	playback.travel("aiming")

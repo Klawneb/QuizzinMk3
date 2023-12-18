@@ -51,6 +51,8 @@ func _exit_tree() -> void:
 	SceneManager.global_mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _ready() -> void:
+	SceneManager.respawn_player.connect(respawn)
+	
 	name_label.text = username
 	spine_ik.start()
 	
@@ -223,4 +225,7 @@ func receive_damage(damage: int):
 	bullet_impact_player.play()
 	if health <= 0:
 		health = 100
-		position = Vector3.ZERO
+		SceneManager.player_died.emit()
+
+func respawn(spawn_position: Vector3):
+	position = spawn_position

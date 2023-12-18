@@ -17,6 +17,7 @@ func _exit_tree() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	SceneManager.player_died.connect(respawn)
 	SceneManager.background_visibility_changed.emit(false)
 	SceneManager.add_player_debug.connect(func(): $MultiplayerSpawner.spawn({
 					"multiplayer_id": randi(), 
@@ -48,3 +49,6 @@ func get_spawnpoints() -> Array:
 		if point.empty:
 			available.append(point)
 	return available
+
+func respawn():
+	SceneManager.respawn_player.emit(get_spawnpoints().pick_random().position)
